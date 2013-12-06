@@ -21,6 +21,26 @@
   </head>
 
   <body>
+  <p>Starred repos&nbsp;:</p>
+<div id="liste"></div>
+<script type="text/javascript">
+    var target_elt = $('#liste');
+    var url = "https://api.github.com/users/sowappy/starred";
+    var request = $.get(url, {}, function() {}, 'jsonp');
+    request.done(function(data) {
+        var ul = $('<ul/>').addClass('star-liste').appendTo(target_elt);
+        $.each(data.data, function(i, item) {
+            var li = $('<li/>').appendTo(ul);
+            $("<a/>").attr("href", item.html_url)
+                .attr("title", "un projet que j’affectionne")
+                .html(item.name)
+                .appendTo(target_elt).appendTo(li);
+            if ( i === 10 ) {  // max items
+                return false;
+            }
+        });
+    });
+</script>
     <a id="forkme_banner" href="https://github.com/Sowappy/github.io">View on GitHub</a>
     <div class="shell">
 
